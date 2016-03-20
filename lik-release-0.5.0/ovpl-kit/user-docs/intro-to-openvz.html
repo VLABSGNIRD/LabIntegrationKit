@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Introduction to OpenVZ</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Introduction to OpenVZ"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2014-09-16"/>
+<meta name="author" content="VLEAD Team, IIITH"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="style/css/worg-style.css" />
+<link rel="stylesheet" type="text/css" href="style/css/override.css" />
+<script type="text/javascript" src="style/js/org-info.js">
+/**
+ *
+ * @source: style/js/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in style/js/org-info.js.
+ *
+ * Copyright (C) 2012-2013  Sebastian Rose
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in style/js/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "1");
+org_html_manager.set("LINK_HOME", "./index.html");
+org_html_manager.set("LINK_UP", "./index.html");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Introduction to OpenVZ</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 About this Document</a></li>
+<li><a href="#sec-2">2 Introduction to Virtualization</a></li>
+<li><a href="#sec-3">3 Types of Virtualization</a></li>
+<li><a href="#sec-4">4 Operating System-level Virtualization</a></li>
+<li><a href="#sec-5">5 Introduction to OpenVZ</a>
+<ul>
+<li><a href="#sec-5-1">5.1 What is a Container?</a></li>
+<li><a href="#sec-5-2">5.2 What is an OpenVZ kernel?</a>
+<ul>
+<li><a href="#sec-5-2-1">5.2.1 Virtualization and Isolation</a></li>
+<li><a href="#sec-5-2-2">5.2.2 Enables many VEs within a single kernel</a></li>
+<li><a href="#sec-5-2-3">5.2.3 Resource management</a></li>
+<li><a href="#sec-5-2-4">5.2.4 Checkpointing</a></li>
+</ul></li>
+</ul>
+</li>
+<li><a href="#sec-6">6 OpenVZ Installation</a></li>
+<li><a href="#sec-7">7 Commands used in OpenVZ</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> About this Document</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>This document provides the basic information about virtualization and OpenVZ - a server virtualization software for linux-based computers.<br/>
+</p>
+<p>
+<b>Audience of this Document</b><br/>
+The primary audience of this document are the Integration Engineers who are involved in the Auto-Deployment process. It is assumed that the Integration Engineers are comfortable with Linux system administration.<br/>
+</p>
+<p>
+<b>System Pre-requsites</b><br/>
+The hardware and software requirements of the systems that the Integration Engineers use for virtualization are:<br/>
+</p><ul>
+<li>Minimum 2GB RAM
+</li>
+<li>The machine should have one dedicated partition for CentOS (version 6.5 only)
+</li>
+<li>Minimum 50GB hard disk space
+</li>
+<li>The machine should have a dual core processor
+</li>
+</ul>
+
+
+<p>
+<b>Assumptions</b><br/>
+It is assumed that the Integration Engineers will have the lab sources of their respective Institutes with them.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Introduction to Virtualization</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<ul>
+<li>Virtualization is a framework or methodology of dividing the resources of a computer into multiple execution environments. Virtualization techniques create multiple isolated partitions such as Virtual Machines (VM) or Virtual Environments (VEs) on a single physical server. 
+</li>
+<li>Virtualization refers to the abstraction of computer resources. It is "a technique for hiding the physical characteristics of computing resources from the way in which other systems, applications, or end users interact with those resources. This involves making a single physical resource (such as a server, an operating system, an application, or storage device) function as multiple logical resources; or it can involve making multiple physical resources (such as storage devices or servers) appear as a single logical resource."
+</li>
+<li>The common theme of all virtualization technologies is the hiding of technical detail through encapsulation. Virtualization creates an external interface that hides an underlying implementation by multiplexing access, by combining resources at different physical locations, or by simplifying a control system.
+</li>
+</ul>
+
+<p><img src="../img/befor and after virtualiation.png"  alt="../img/befor and after virtualiation.png" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Types of Virtualization</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<ol>
+<li><b>Full virtualization</b>: This involves almost complete simulation of the actual hardware to allow software of a guest operating system to run unmodified.
+</li>
+<li><b>Partial virtualization</b>: In this scenario, some but not all the target environment is simulated. Some guest programs may need modifications to run in this virtual environment.
+</li>
+<li><b>Paravirtualization</b>: In this environment, a hardware environment is not simulated. However, the guest programs are executed in their own isolated domains as if they are running on a separate system. Guest programs need to be specifically modified to run in this environment.
+</li>
+</ol>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Operating System-level Virtualization</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<ul>
+<li>Operating system-level virtualization is a server virtualization method where the kernel of an operating system allows multiple isolated user space instances instead of just one. Such instances often called containers, virtualization engines (VE), virtual private servers (VPS) or FreeBSD jail(jails) may look and feel like a real server from the point of view of its owners and users. On Unix-like operating systems, this technology can be seen as an advanced implementation of the standard chroot mechanism. In addition to isolation mechanisms, the kernel often provides resource management features to limit the impact of one container's activities on the other containers. Virtual labs architecture uses OS level virtualization software called OpenVZ.
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Introduction to OpenVZ</h2>
+<div class="outline-text-2" id="text-5">
+
+
+<ul>
+<li>OpenVZ is container-based virtualization for Linux. OpenVZ creates multiple secure, isolated Linux containers (otherwise known as VEs or VPSs) on a single physical server enabling better server utilization and ensuring that applications do not conflict.
+</li>
+<li>Each container performs and executes exactly like a stand-alone server; a container can be rebooted independently and have root access, users, IP addresses, memory, processes, files, applications, system libraries and configuration files.
+</li>
+</ul>
+
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> What is a Container?</h3>
+<div class="outline-text-3" id="text-5-1">
+
+
+<ul>
+<li>A container (otherwise known as CT, Virtual Environment (VE), Virtual Private Server (VPS) etc.) is one of the main concepts of OpenVZ.
+</li>
+<li>Container is an isolated entity which performs and executes exactly like a stand-alone server. Container can be rebooted independently and have root access, users/groups, IP address(es), memory, processes, files, applications, system libraries and configuration files.
+</li>
+<li>OpenVZ supports multiple CTs (as many as several hundreds) on a single Hardware Node. 
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> What is an OpenVZ kernel?</h3>
+<div class="outline-text-3" id="text-5-2">
+
+
+<p>
+<b>The OpenVZ kernel is a Linux kernel modified to support OpenVZ containers. It has the following functionalities:</b>
+</p>
+</div>
+
+<div id="outline-container-5-2-1" class="outline-4">
+<h4 id="sec-5-2-1"><span class="section-number-4">5.2.1</span> Virtualization and Isolation</h4>
+<div class="outline-text-4" id="text-5-2-1">
+
+<p><b>This is a functiionaliy where each container is a separate entity, and behaves like a physical server. Each container has its own:</b>
+</p><ul>
+<li id="sec-5-2-1-1">Files<br/>
+    System libraaries, applications, virtualized /proc and /sys, virtualized locks, etc.
+
+</li>
+</ul>
+<ul>
+<li id="sec-5-2-1-2">Users and groups<br/>
+    Each container has its own root user as well as other users and groups.
+
+</li>
+</ul>
+<ul>
+<li id="sec-5-2-1-3">Process tree<br/>
+    A container only sees its own processes (starting from init). PIDs are virtualized, so that the init PID is 1 as it should be.
+
+</li>
+</ul>
+<ul>
+<li id="sec-5-2-1-4">Network<br/>
+    A virtual network device, which allows a container to have its own IP addresses as well as a set of netfilter (iptables), and routing rules.
+
+</li>
+</ul>
+<ul>
+<li id="sec-5-2-1-5">Devices<br/>
+    If needed, any container can be granted access to real devices like network interfaces, serial ports, disk partitions, etc.
+
+</li>
+</ul>
+<ul>
+<li id="sec-5-2-1-6">IPC objects<br/>
+    Shared memory, semaphores, messages. 
+</li>
+</ul>
+</div>
+
+</div>
+
+<div id="outline-container-5-2-2" class="outline-4">
+<h4 id="sec-5-2-2"><span class="section-number-4">5.2.2</span> Enables many VEs within a single kernel</h4>
+<div class="outline-text-4" id="text-5-2-2">
+
+<p>According to this functionality, many containers can be created on top of a single OpenVZ kernel. 
+</p></div>
+
+</div>
+
+<div id="outline-container-5-2-3" class="outline-4">
+<h4 id="sec-5-2-3"><span class="section-number-4">5.2.3</span> Resource management</h4>
+<div class="outline-text-4" id="text-5-2-3">
+
+<p><b>As per this functionality, the OpenVZ kernel manages CPU, RAM, Disk space on a per VE basis</b>
+<b>- OpenVZ resource management is a set of controls providing per-container resource accounting and limiting.</b><br/>
+<b>- This is required for multiple containers to coexist gracefully on a single host system.</b><br/>
+<b>- OpenVZ resource management includes these four primary controllers:</b><br/>
+</p><ul>
+<li>User beancounters (and VSwap)
+</li>
+<li>Disk quota
+</li>
+<li>CPU Fair scheduler
+</li>
+<li>I/O priorities and I/O limits
+</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-2-4" class="outline-4">
+<h4 id="sec-5-2-4"><span class="section-number-4">5.2.4</span> Checkpointing</h4>
+<div class="outline-text-4" id="text-5-2-4">
+
+<ul>
+<li>This functionality involves freezing a VE, saving its state to disk with the ability to unfreeze the state later.
+</li>
+</ul>
+
+
+</div>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> OpenVZ Installation</h2>
+<div class="outline-text-2" id="text-6">
+
+<p> The following link briefly describes the steps needed to install OpenVZ on a CentOS 6 machine.
+</p>
+<ul>
+<li><a href="https://openvz.org/Quick_installation ">OpenVZ quick Installation manual</a>
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Commands used in OpenVZ</h2>
+<div class="outline-text-2" id="text-7">
+
+<p>Some of the commonly used OpenVZ commands are described below.<br/>
+<b>To list all the running/stopped containers</b>   
+</p>
+
+
+<pre class="example">vzlist -a
+</pre>
+
+
+<p>
+<b>To list all the running containers in the node</b>
+</p>
+
+
+<pre class="example">vzlist
+</pre>
+
+
+<p>
+<b>To display the templates present in the server</b>
+</p>
+
+
+<pre class="example">vzpkgls
+</pre>
+
+
+<p>
+<b>To create a Container with CTID 101 and ostemplate fedora-core-4 with vps.basic configuration</b>
+</p>
+
+
+<pre class="example">vzctl create 101 --ostemplate fedora-core-4 -.config vps.basic
+</pre>
+
+
+<p>
+<b>To delete and destroy a Container with CTID 101</b>
+</p>
+
+
+<pre class="example">vzctl destroy 101
+</pre>
+
+
+<p>
+<b>To configure Container (The changes are saved in /etc/vz/conf/&lt;CTID&gt;.conf) To automatically boot when a node is up</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --onboot yes --save
+</pre>
+
+
+<p>
+<b>To set hostname</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --hostname test101.my.org --save
+</pre>
+
+
+<p>
+<b>To add an IP address</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --ipadd 10.0.186.1 --save
+</pre>
+
+
+<p>
+<b>To delete an IP address</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --ipdel 10.0.186.1 --save
+</pre>
+
+<p>
+<b>To set the name servers</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --nameserver 192.168.1.165 --save
+</pre>
+
+
+<p>
+<b>To set the root password of container 101</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --userpasswd root:password
+</pre>
+
+
+<p>
+<b>To set shortname for Container</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --name test101 --save
+</pre>
+
+
+<p>
+<b>To start a Container</b>
+</p>
+
+
+<pre class="example">vzctl start 101
+</pre>
+
+
+<p>
+<b>To start a disabled Container</b>
+</p>
+
+
+<pre class="example">vzctl start 101 --force
+</pre>
+
+
+<p>
+<b>To stop a Container</b>
+</p>
+
+
+<pre class="example">vzctl stop 101
+</pre>
+
+
+<p>
+<b>To restart a Container</b>
+</p>
+
+
+<pre class="example">vzctl restart 101
+</pre>
+
+
+<p>
+<b>To know the status of a Container</b>
+</p>
+
+
+<pre class="example">vzctl status 101
+</pre>
+
+
+<p>
+<b>To get the details of the Container like CTID, ClassID, number of processes inside each Container and the IP addresses of Container</b>
+</p>
+
+
+<pre class="example">cat /proc/vz/veinfo
+</pre>
+
+
+<p>
+<b>To enter into a Container 101</b>
+</p>
+
+
+<pre class="example">vzctl enter 101
+</pre>
+
+
+<p>
+To execute a command in Container 101
+</p>
+
+
+<pre class="example">vzctl exec 101 command --- replace command with the command you need to execute
+vzctl exec 101 df -h
+</pre>
+
+
+<p>
+<b>Managing Disk Quotas To assign disk quotas - First limit is soft limit, second limit is hard limit</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --diskspace 10485760 --save  ==&gt;&gt; for setting 10GB
+OR
+vzctl set 101 --diskspace 1048576 --save   ==&gt;&gt; for setting 1GB
+</pre>
+
+
+<p>
+<b>To assign disk inodes</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --diskinodes 90000:91000 --save
+</pre>
+
+
+<p>
+<b>To check the disk quota of a Container</b>
+</p>
+
+
+<pre class="example">vzquota stat 101 -t
+</pre>
+
+
+<p>
+<b>Managing CPU quota To display the available CPU power</b>
+</p>
+
+
+<pre class="example">vzcpucheck
+</pre>
+
+
+<p>
+<b>To set the number of CPUs available to a Container</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --cpus 2 --save
+</pre>
+
+
+<p>
+<b>To set the minimum and maximum CPU limits</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --cpuunits nnnn --cpulimit nn --save
+</pre>
+
+<p>
+(cpuunits is a an absolute number (fraction of power of the node) and cpulimit is taken as percentage)
+</p>
+<p>
+<b>Managing memory quota To display memory usage</b>
+</p>
+
+
+<pre class="example">vzmemcheck -v
+</pre>
+
+
+<p>
+<b>To set kmem</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --kmemsize 2211840:2359296 --save
+</pre>
+
+<p>
+<b>To set privvmpages</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --privvmpages 2G:2G --save
+</pre>
+
+
+<p>
+<b>Other Commands To copy/clone a Container</b>
+</p>
+
+
+<pre class="example">vzmlocal -C &lt;source_CTID&gt;:&lt;desitnation_CTID&gt;
+</pre>
+
+<p>
+<b>To disable a Container</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --disabled yes
+</pre>
+
+
+<p>
+<b>To enable a Container</b>
+</p>
+
+
+<pre class="example">vzctl set 101 --disabled no
+</pre>
+
+
+<p>
+<b>To suspend a VPS</b>
+</p>
+
+
+<pre class="example">vzctl suspend 101
+</pre>
+
+<p>
+<b>To resume a Container</b>
+</p>
+
+
+<pre class="example">vzctl resume 101
+</pre>
+
+
+<p>
+<b>To run yum update on a Container</b>
+</p>
+
+
+<pre class="example">vzyum 101 -y update
+</pre>
+
+
+<p>
+<b>To install a package using yum on Container</b>
+</p>
+
+
+<pre class="example">vzyum 101 -y install package
+</pre>
+
+<p>
+<b>To install a package using rpm on Container</b>
+</p>
+
+
+<pre class="example">vzrpm 101 -ivh package
+</pre>
+
+
+<p>
+<a href="https://openvz.org/Man/vzctl.8 ">Visit Man page to know about all OpenVZ commands in detail</a> 
+</p></div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2014-09-16</p>
+<p class="author">Author: VLEAD Team, IIITH</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

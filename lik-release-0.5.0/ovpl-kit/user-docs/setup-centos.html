@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>How to Setup CentOS as a Deployment Platform and How to Deploy a Lab</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="How to Setup CentOS as a Deployment Platform and How to Deploy a Lab"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2014-10-01"/>
+<meta name="author" content="VLEAD Team, IIITH"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="style/css/worg-style.css" />
+<link rel="stylesheet" type="text/css" href="style/css/override.css" />
+<script type="text/javascript" src="style/js/org-info.js">
+/**
+ *
+ * @source: style/js/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in style/js/org-info.js.
+ *
+ * Copyright (C) 2012-2013  Sebastian Rose
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in style/js/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "1");
+org_html_manager.set("LINK_HOME", "./index.html");
+org_html_manager.set("LINK_UP", "./index.html");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="org-div-home-and-up" style="text-align:right;font-size:70%;white-space:nowrap;">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="./index.html"> HOME </a>
+</div>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">How to Setup CentOS as a Deployment Platform and How to Deploy a Lab</h1>
+
+
+
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Objective</a></li>
+<li><a href="#sec-2">2 Prerequisites</a>
+<ul>
+<li><a href="#sec-2-1">2.1 Your machine has CentOS version <code>6.5</code> or greater running on it.</a></li>
+<li><a href="#sec-2-2">2.2 Your machine has a 64 bit architecture</a></li>
+<li><a href="#sec-2-3">2.3 You are on the Internet</a></li>
+<li><a href="#sec-2-4">2.4 You have sudo permissions as root</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Instructions for installation</a>
+<ul>
+<li><a href="#sec-3-1">3.1 Changing to the right directory</a></li>
+<li><a href="#sec-3-2">3.2 Edit the configurations</a></li>
+<li><a href="#sec-3-3">3.3 Get the <code>openVZ</code> template</a></li>
+<li><a href="#sec-3-4">3.4 Run the script to prepare centos</a></li>
+<li><a href="#sec-3-5">3.5 Run <code>make</code> to start OVPL</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 Deploy a Lab</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Objective</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+The objective of these instructions is to set up the <code>Centos</code> on your
+machine as a virtual lab deployment platform.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Prerequisites</h2>
+<div class="outline-text-2" id="text-2">
+
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Your machine has CentOS version <code>6.5</code> or greater running on it.</h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<p>
+You can know that by typing
+</p>
+
+
+<pre class="example">cat /etc/issue
+</pre>
+
+
+<p>
+The output should be 
+</p>
+
+
+<pre class="example">CentOS release 6.5 (Final)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Your machine has a 64 bit architecture</h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+<p>
+To find out, type
+</p>
+
+
+<pre class="example">grep flags /proc/cpuinfo
+</pre>
+
+
+
+<p>
+The output should include the word "lm" (for long mode, indicating 64
+bit) as one of the flags.
+</p>
+
+
+
+<pre class="example">flags : fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov
+pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe nx rdtscp *lm*
+constant_tsc arch_perfmon pebs bts xtopology nonstop_tsc aperfmperf
+pni dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1
+sse4_2 popcnt lahf_lm arat dtherm tpr_shadow vnmi flexpriority ept
+vpid
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> You are on the Internet</h3>
+<div class="outline-text-3" id="text-2-3">
+
+
+<p>
+The installation pulls packages from open repositories and you will need
+an Internet connection to run the scripts successfully. 
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> You have sudo permissions as root</h3>
+<div class="outline-text-3" id="text-2-4">
+
+<p>The scripts install software using yum - a package management
+utility - which can run only in sudo root mode.  Therefore, invoke the
+script with a <code>sudo</code> command.  Be careful!  Reckless execution of
+commands with root permission could make your machine inoperable!
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Instructions for installation</h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Changing to the right directory</h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<p>
+Please use the structure of the LIK, and change directory to <code>lik-release-0.5.0/ovpl-kit/scripts</code> 
+</p>
+
+
+
+<pre class="example">cd lik-release-0.5.0/ovpl-kit/scripts
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Edit the configurations</h3>
+<div class="outline-text-3" id="text-3-2">
+
+
+<p>   
+   Edit file <code>config.sh</code>.
+</p>
+
+
+
+<pre class="example">cd scripts
+vim config.sh
+</pre>
+
+
+
+<p>
+Edit the config file to set the <code>http_proxy</code> and <code>https_proxy</code> fields.
+If there are no proxies to be set, leave the fields unchanged.
+The snippet below shows how to set proxies.
+</p>
+
+
+<pre class="example">export http_proxy="http://proxy.vlabs.ac.in:8080"
+export https_proxy="http://proxy.vlabs.ac.in:8080"
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Get the <code>openVZ</code> template</h3>
+<div class="outline-text-3" id="text-3-3">
+
+
+<p>
+<code>cd</code> to the <code>meta</code> directory.  Download the  openVZ template OS:
+</p>
+
+
+<pre class="example">cd ../meta  
+wget community.virtual-labs.ac.in/downloads/ubuntu-12.04-custom-x86_64.tar.gz
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Run the script to prepare centos</h3>
+<div class="outline-text-3" id="text-3-4">
+
+
+
+
+<pre class="example">cd ../scripts
+sudo root  ./centos_prepare_ovpl.sh
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Run <code>make</code> to start OVPL</h3>
+<div class="outline-text-3" id="text-3-5">
+
+
+
+
+<pre class="example">cd ../ovpl/src/
+sudo root make
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Deploy a Lab</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+At this point, OVPL services are running and you are ready to deploy a lab.
+</p>
+<dl>
+<dt>To deploy your lab</dt><dd>
+<ul>
+<li>Open the browser.
+</li>
+<li>Enter <code>localhost:8080</code> as the url.
+</li>
+<li>The form requires you to fill <code>Lab ID</code>. You may assign any new alphanumeric name as a lab id.
+</li>
+<li>Also, fill in the <code>Repo url</code> with the url of the lab sources on github repository.
+</li>
+<li>Click <code>submit</code> to deploy your lab.
+</li>
+<li>If the deployment is successful, an <code>IP address</code> will appear in the same browser window.
+</li>
+<li>Enter the <code>IP address</code> in the address bar to view the newly deployed lab.
+</li>
+</ul>
+
+</dd>
+</dl>
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2014-10-01</p>
+<p class="author">Author: VLEAD Team, IIITH</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.3f with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
